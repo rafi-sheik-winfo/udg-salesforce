@@ -33,19 +33,26 @@ $(document).ready(async function () {
 
     async function watsScripter(e) {
         debugger;
-        if ($(e.target).attr('id') === 'Login'  && $(e.target).attr('type') === 'submit'){
+        if ($(e.target).attr('id') === 'Login' && $(e.target).attr('type') === 'submit'){
             alert("Login");
            console.log( $(e.target).parents().find('#username').first().val());
            
         }
-        if($(e.target).attr("class").includes("logout") &&  $(e.target).text().trim() === "Log Out")  {
+        if($(e.target).text().trim() === "Log Out")  {
             alert("Log out button clicked");
         }
-        if($(e.target).attr("class").includes("slds-truncate")){
-            alert("accounts");
-        }
-       
+        
+       if ($(e.target).text().trim()==="Account"){
+            alert("account label in project");
+       }
+       if (($(e.target).prop("tagName")==="SPAN" && $(e.target).parent().prop("tagName")==="A") || ($(e.target).prop("tagName")==="SPAN")){
+            alert("click link");
+       }
+       if($(e.target).prop('tagName')==="INPUT" && $(e.target).prop('type') === "button"  || (($(e.target).prop('tagName') === 'SPAN' && $(e.target).parent().prop('tagName') === 'BUTTON') || ($(e.target).prop('tagName') === 'BUTTON'))) {
+        alert("user Buttons");
+       }
     }
+
 
     //It will get The Normal Header For The Elements
     function getNormalHeader(e, header1, header2){
@@ -82,9 +89,3 @@ $(document).ready(async function () {
 });
 
 
-// if ($(e.target).attr('id') === 'Login'  && $(e.target).attr('type') === 'submit'){
-//     console.log("Login");
-//    console.log( $(e.target).parents().find('#username').first().val())
-   
-//$(e.target).attr("href")==="/secur/logout.jsp" && $(e.target).attr("class") === "uiOutputURL"}
-// e.target.nodeName == "A" && $(e.target).text().trim() === "Log Out"
