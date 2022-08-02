@@ -1,0 +1,167 @@
+<html>
+  <head>
+    <title>Popup</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"
+      integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g=="
+      crossorigin="anonymous" />
+    <link rel="stylesheet" href="bootstap.css">
+
+    <script src="popup.js"></script>
+    <style type="text/css">
+      .col-6,
+      .col-12 {
+        margin-bottom: 10px;
+      }
+
+      .validate-process-area,
+      .validate-sub-process-area,
+      .validate-module,
+      .validate-role,
+      .validate-scenario-name,
+      .validate-scenario-description,
+      .validate-product-version,
+      .validate-priority,
+      .validate-standard-custom {
+        color: red;
+      }
+
+      .validate-application{
+        color: red;
+      }
+
+      .btn {
+        width: 75%;
+        margin: 5px 0px;
+        border-radius: 20px;
+      }
+
+      .block2 {
+        position: fixed;
+        right: 10px;
+        top: 5px;
+        border-radius: 20px;
+      }
+    </style>
+  </head>
+  <body style="width:400px;padding:5px;">
+    <div id="mainDiv">
+      <div id="alert" class="alert alert-primary" role="alert"
+        style="display:none;width: 300px;font-size: 16px;text-align: center;position:absolute;left:50px;z-index:1031;padding:10px 5px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+      </div>
+      <div style="text-align: center;">
+        <img src="wats.png" alt="wats" width="150px" height="75px">
+        <p style="font-size:14px !important;color:#999;font-weight: 400;margin-top: 10px;">&nbsp; Assists you to create
+          WATS Scripts</p>
+      </div>
+      <div class="loginView text-center">
+        <label class="text-left d-block">Instance</label>
+        <select class="form-control group">
+
+        </select>
+        <label class="text-left d-block">User Name</label>
+        <input type="text" class="form-control userName">
+        <label class="text-left d-block">Password</label>
+        <p>
+          <input type="password" class="form-control password">
+          <a href="#" id="showpassword">Show</a>
+        </p>
+        <button class="btn btn-primary loginBtn">Login</button>
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+              </div>
+              <div class="modal-body">
+                <p>This is a small modal.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="btnView" style="text-align: center;display: none;">
+        <button class="wats-start btn btn-primary">Start</button>
+        <button class="wats-resume btn btn-info">Resume</button>
+        <button class="wats-pause btn btn-info">Pause</button> &nbsp;
+        <button class="wats-clear btn btn-info">Clear</button>
+        <button class="wats-submit btn btn-secondary">Stop & Submit</button>
+        <button class="block2 wats-logout btn-info" style="font-size:15px">Logout</button>
+      </div>
+      <div id="form" class="row" style="margin-top:10px;display:none">
+        <div class="col-6">
+          <select class="form-control process-area" required>
+            <option value="">Process Area</option>
+          </select>
+          <p class="validate-process-area" style="display: none;">Enter process-area</p>
+        </div>
+        <div class="col-6">
+          <select class="form-control sub-process-area">
+            <option value="">Sub Process Area</option>
+          </select>
+          <p class="validate-sub-process-area" style="display: none;">Enter sub-process-area</p>
+        </div>
+        <div class="col-6">
+          <select class="form-control module">
+            <option value="">Module</option>
+          </select>
+          <p class="validate-module" style="display: none;">Enter module</p>
+        </div>
+        <div class="col-6">
+          <select class="form-control role">
+            <option value="">Role</option>
+          </select>
+          <p class="validate-role" style="display: none;">Enter Role</p>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control scenario-name" placeholder="Scenario Name">
+          <p class="validate-scenario-name" style="display: none;">Enter scenario-name</p>
+        </div>
+        <div class="col-6">
+          <input type="text" class="form-control scenario-description" placeholder="Scenario Description">
+          <p class="validate-scenario-description" style="display: none;">Enter scenario Description</p>
+        </div>
+      <div class="col-6">
+        <select class="form-control priority">
+          <option value="">Priority</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+        </select>
+        <p class="validate-priority" style="display: none;">Enter priority</p>
+      </div>
+      <div class="col-6">
+        <select id="select_id" class="form-control product-version">
+          <option value="">Product version</option>
+        </select>
+        <p class="validate-product-version" style="display: none;">Enter product-version</p>
+      </div>
+      <div class="col-6">
+        <select class="form-control standard-custom">
+          <option value="">Standard/Custom</option>
+          <option>Standard</option>
+          <option>Custom</option>
+        </select>
+        <p class="validate-standard-custom" style="display: none;">Enter standard/custom</p>
+      </div>
+      <div class="col-6">
+        <select class="form-control application">
+          <option value="Oracle Fusion">Oracle Fusion</option>
+        </select>
+        <p class="validate-application" style="display: none;">Enter Target Application</p>
+      </div>
+      <div class="col-12" style="text-align:center">
+        <button class="btn btn-primary wats-form-submit">Submit</button> &nbsp;
+        <button class="btn btn-secondary wats-form-cancel">Cancel</button>
+      </div>
+    </div>
+  </body>
+</html>

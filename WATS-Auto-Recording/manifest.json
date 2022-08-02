@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "WATS Script Assistant",
+  "version": "22.7.1",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "background",
+    "tabs",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "watslogo.png",
+    "48": "watslogo.png",
+    "128": "watslogo.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.oraclepdemos.com/*",
+        "https://*.oracledemos.com/*",
+        "https://*.oraclecloud.com/*",
+        "https://*.salesforce.com/*",
+        "https://*.force.com/*"
+      ],
+      "js": [
+        "jquery.min.js",
+        "content_sf.js"
+      ],
+      "all_frames": true
+    }
+  ]
+}

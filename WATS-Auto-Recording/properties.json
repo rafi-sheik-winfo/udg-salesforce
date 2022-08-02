@@ -1,0 +1,43 @@
+{
+    "groups": [
+        {
+            "name": "DEV",
+            "baseURL": "https://watsdev.winfosolutions.com/wats/wats_workspace_prod/plug_in/"
+        },
+        {
+            "name": "UAT",
+            "baseURL": "https://watsuat.winfosolutions.com/wats/wats_workspace_prod/plug_in"
+        },
+        {
+            "name": "TST",
+            "baseURL": "https://tst.winfosolutions.com/wats/wats_workspace_prod/plug_in/"
+        },
+        {
+            "name": "PROD",
+            "baseURL": "https://watsprd.winfosolutions.com/wats/wats_workspace_prod/plug_in"
+        },
+        {
+            "name" : "DH",
+            "baseURL": "https://dh.winfosolutions.com/wats/wats_workspace_prod/plug_in"
+        },
+        {
+            "name" : "CAMDEN",
+            "baseURL": "https://camden.winfosolutions.com/wats/wats_workspace_prod/plug_in"
+        },
+        {
+            "name" : "HS2",
+            "baseURL": "https://hs2.winfosolutions.com/wats/wats_workspace_prod/plug_in"
+        },
+
+        {
+            "name" : "UDG",
+            "baseURL" : "https://udgsup.winfosolutions.com/wats/wats_workspace_prod/plug_in"
+        },
+
+        {
+            "name" : "ORANGE",
+            "baseURL" : "https://orange.winfosolutions.com/wats/wats_workspace_prod/plug_in"
+        }
+
+    ]
+}
