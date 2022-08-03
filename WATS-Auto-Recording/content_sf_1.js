@@ -45,13 +45,26 @@ $(document).ready(async function () {
        if ($(e.target).text().trim()==="Account"){
             alert("account label in project");
        }
-       if (($(e.target).prop("tagName")==="SPAN" && $(e.target).parent().prop("tagName")==="A") || ($(e.target).prop("tagName")==="SPAN")){
+       if ($(e.target).prop("tagName")==="SPAN" && $(e.target).parent().prop("tagName")==="A" && $(e.target).prop("role")!=="button" &&  $(e.target).parent().prop("tagName")!=="H1"){
             alert("click link");
        }
-       if($(e.target).prop('tagName')==="INPUT" && $(e.target).prop('type') === "button"  || (($(e.target).prop('tagName') === 'SPAN' && $(e.target).parent().prop('tagName') === 'BUTTON') || ($(e.target).prop('tagName') === 'BUTTON'))) {
+       if(($(e.target).prop('tagName')==="INPUT" && $(e.target).prop('type') === "button"  &&  $(e.target).prop("role")=="button")|| (($(e.target).prop('tagName') === 'SPAN' && $(e.target).parent().prop('tagName') === 'BUTTON') || ($(e.target).prop('tagName') === 'BUTTON'))) {
         alert("user Buttons");
        }
+       if($(e.target).prop("tagName")==="DIV" && $(e.target).children().find("button").prop("controls")!==undefined ){
+        alert("dropdown values");
+       }
+       if($(e.target).prop("tagName")==="SPAN" && $(e.target).parent().prop("tagName")==="H1"){
+        alert("Click Button Dropdown");
+       }
+       if ($(e.target).prop("tagName")==="A" && $(e.target).parent().prop("tagName")==="SPAN" && $(e.target).parent().parent().prop("tagName")==="TD"){
+        alert("clickTableLink");
+       }
+       if($(e.target).prev().prop("type")==="checkbox"){
+        alert("Click Checkbox");
+       }
     }
+
 
 
     //It will get The Normal Header For The Elements
@@ -88,4 +101,5 @@ $(document).ready(async function () {
 
 });
 
-
+//&& $(e.target).children().find("button").prop("controls").includes("dropdown-element")
+//$(e.target).parents('td').first().next().text()
