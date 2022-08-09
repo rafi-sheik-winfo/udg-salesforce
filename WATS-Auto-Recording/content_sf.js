@@ -124,7 +124,7 @@ if (document.referrer.includes('force.com')) {
                 paramTwo = $(e.target).text().trim();
             }
 
-            if (action === 'SendKeysDate' || action === 'SendKeys' || action === 'checkbox' || paramTwo === ''){
+            if (action === 'SendKeysDate' || action === 'SendKeys' || action === 'checkbox' || paramTwo === '' || action==="selectByText"){
                 if ($(e.target).parents('*:has("label")').first().find('label').first().text() !== '' && $(e.target).parents('*:has("label")').first().find('label').first().text().length < 50) {
                     paramTwo = $(e.target).parents('*:has("label")').first().find('label').first().text();
                 }
@@ -152,7 +152,7 @@ if (document.referrer.includes('force.com')) {
             } else if ($(e.target).attr("class") !== undefined && $(e.target).attr("class").includes("logout") && $(e.target).text().trim() === "Log Out") {
                 actionName = "Logout";
             } else if (($(e.target).prop('tagName') === "INPUT" && $(e.target).prop('type') === "button") || (($(e.target).prop('tagName') === 'SPAN' && $(e.target).parent().prop('tagName') === 'BUTTON') || ($(e.target).prop('tagName') === 'BUTTON' && $(e.target).attr('aria-haspopup') !== 'listbox')
-                || ($(e.target).prop('tagName') === "A" && $(e.target).prop('role') === 'BUTTON')) || ($(e.target).prop('type') === 'button' && $(e.target).prop('tagName') === 'BUTTON')
+                || ($(e.target).prop('tagName') === "A" && $(e.target).prop('role') === 'BUTTON')) || ($(e.target).prop('type') === 'button' && $(e.target).prop('tagName') === 'BUTTON' && $(e.target).attr('aria-haspopup') !== 'listbox')
                 || ($(e.target).prop('tagName') === 'DIV' && $(e.target).parent().prop('tagName') === 'A' && $(e.target).parent().prop('role')==='button')) {
                 actionName = "clickButton";
             } else if (($(e.target).prop("tagName") === "SPAN" && $(e.target).parent().prop("tagName") === "A") || ($(e.target).prop("tagName") === "A" && $(e.target).attr('role') === 'option')) {
@@ -167,16 +167,16 @@ if (document.referrer.includes('force.com')) {
                 if ($(e.target).prop('name') !== undefined && $(e.target).prop('name').includes('Date')){
                     actionName = 'SendKeysDate';
                 }
-            } else if ($(e.target).prop('tagName') === 'SELECT' || $(e.target).attr('aria-haspopup') === 'listbox') {
-                actionName = 'selectByText';
-            } else if (($(e.target).prop('tagName') === 'IMG' && $(e.target).prop('class') !== undefined && $(e.target).prop('class').includes('check')) || ($(e.target).prev().prop("type") === "checkbox") || $(e.target).prop('type') === 'checkbox') {
+            }  else if (($(e.target).prop('tagName') === 'IMG' && $(e.target).prop('class') !== undefined && $(e.target).prop('class').includes('check')) || ($(e.target).prev().prop("type") === "checkbox") || $(e.target).prop('type') === 'checkbox') {
                 actionName = 'checkbox';
             } else if ($(e.target).prop("tagName") === "A" && $(e.target).parent().prop("tagName") === "SPAN" && $(e.target).parent().parent().prop("tagName") === "TD") {
                 actionName = 'clickTableLink';
             } else if ($(e.target).prop('tagName') === 'SPAN' && $(e.target).siblings('input').first().attr('type') === 'radio' || $(e.target).attr('type') === 'radio') {
-                actionName = 'clickRadiobutton'
+                actionName = 'clickRadiobutton';
             }
-
+            else if ($(e.target).prop('tagName') === 'SELECT' || $(e.target).attr('aria-haspopup') === 'listbox') {
+                actionName = 'selectByText';
+            }
             return actionName;
 
         }
@@ -340,8 +340,7 @@ if (document.referrer.includes('force.com')) {
                 "data": currObject
             });
         }
-
-
+    
     });
 
 
