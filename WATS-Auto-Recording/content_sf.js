@@ -213,20 +213,23 @@ if (document.referrer.includes('force.com')) {
             debugger;
             if (duplicateData.length > 1) {
                 let duplicateObj = duplicateData[duplicateData.length - 1]
-                if (duplicateObj["INPUT PARAMETER"] === undefined){
+                if (duplicateObj["INPUT PARAMETER"] === undefined) {
                     duplicateObj = duplicateData[duplicateData.length - 2]
                 }
                 let last_param = duplicateObj["INPUT PARAMETER"]
-                let last_param1 = last_param.split(">")[1];
-                if (duplicateObj["ACTION"] == "SendKeysDate" || duplicateObj["ACTION"] == "SendKeys") {
-                    let value = $('label:contains(' + last_param1 + ')').parent().find("input").first().val();
-                    duplicateObj["INPUT VALUE"] = value;
+                if (last_param !== undefined) {
+                    let last_param1 = last_param.split(">")[last_param.split(">").length - 1];
+                    if (duplicateObj["ACTION"] == "SendKeysDate" || duplicateObj["ACTION"] == "SendKeys") {
+                        let value = $('label:contains(' + last_param1 + ')').parent().find("input").first().val();
+                        duplicateObj["INPUT VALUE"] = value;
+                    }
+
+                    chrome.runtime.sendMessage({
+                        "action": "addAction",
+                        "data": duplicateObj
+                    });
                 }
 
-                chrome.runtime.sendMessage({
-                    "action": "addAction",
-                    "data": duplicateObj
-                });
             }
         }
 
