@@ -29,9 +29,9 @@ if (document.referrer.includes('force.com')) {
             Then this function get Triggered 
         */
         document.onmousedown = async function (e) {
-            // documentClickAchieved = true;
             let curStatus = await LS.getItem('wats-status');
-            watsScripter(e, curStatus);
+            if (e.button === 0)
+                watsScripter(e, curStatus);
         }
 
         function watsScripter(e, curStatus) {
@@ -44,8 +44,6 @@ if (document.referrer.includes('force.com')) {
                 let param1 = getHeader(e);
                 let param2 = getParamTwo(e, action);
                 let inputValue = getInputValue(e, action);
-                // console.log(action, description, param1, param2, inputValue);
-
                 currObject["INPUT PARAMETER"] = param1 ? param1 + '>' + param2 : param2;
                 currObject["STEP DESCRIPTION"] = description + param2;
                 currObject["INPUT VALUE"] = inputValue;
@@ -55,22 +53,23 @@ if (document.referrer.includes('force.com')) {
                     currObject["STEP DESCRIPTION"] = 'Click Logout';
                     currObject["INPUT VALUE"] = '';
                 }
-                // duplicateLogic();
+                duplicateLogic();
                 console.log(currObject);
+
                 //Define the element we wish to bind to.
                 let bind_to = ':input';
 
-                // Prevent double-binding.
-                $(document.body).off('change', bind_to);
+
                 if (($(e.target).prop('tagName') === 'SPAN' && $(e.target).prop('class') === 'slds-truncate')
                     || ($(e.target).text().length > 50) || ($(e.target).prop('tagName') === 'A' && $(e.target).prop('role') === 'option')) {
-                    currObject= undefined;
+                    currObject = undefined;
                 }
                 if (currObject !== undefined && currObject['INPUT PARAMETER'] !== undefined) {
                     duplicateData.push(currObject);
                     console.log(duplicateData);
                 }
-
+                // Prevent double-binding.
+                $(document.body).off('change', bind_to);
                 // Bind the event to all body descendants matching the "bind_to" selector.
                 $(document.body).on('change', bind_to, function (e) {
                     currObject["INPUT VALUE"] = $(e.target).val();
@@ -116,7 +115,7 @@ if (document.referrer.includes('force.com')) {
                 paramTwo = $(e.target).prop('title');
             } else if ($(e.target).children('span').text().trim() !== '' && $(e.target).children('span').text().trim().length < 50) {
                 paramTwo = $(e.target).children('span').text().trim();
-            } else if ($(e.target).parent().siblings('label').first().text() !== '' ){
+            } else if ($(e.target).parent().siblings('label').first().text() !== '') {
                 paramTwo = $(e.target).parent().siblings('label').first().text();
             } else if ($(e.target).parents('label').first().text() !== '') {
                 paramTwo = $(e.target).parents('label').first().text().trim();
@@ -124,7 +123,7 @@ if (document.referrer.includes('force.com')) {
                 paramTwo = $(e.target).text().trim();
             }
 
-            if (action === 'SendKeysDate' || action === 'SendKeys' || action === 'checkbox' || paramTwo === '' || action==="selectByText"){
+            if (action === 'SendKeysDate' || action === 'SendKeys' || action === 'checkbox' || paramTwo === '' || action === "selectByText" || action === 'paste' || action === 'copy') {
                 if ($(e.target).parents('*:has("label")').first().find('label').first().text() !== '' && $(e.target).parents('*:has("label")').first().find('label').first().text().length < 50) {
                     paramTwo = $(e.target).parents('*:has("label")').first().find('label').first().text();
                 }
@@ -153,7 +152,7 @@ if (document.referrer.includes('force.com')) {
                 actionName = "Logout";
             } else if (($(e.target).prop('tagName') === "INPUT" && $(e.target).prop('type') === "button") || (($(e.target).prop('tagName') === 'SPAN' && $(e.target).parent().prop('tagName') === 'BUTTON') || ($(e.target).prop('tagName') === 'BUTTON' && $(e.target).attr('aria-haspopup') !== 'listbox')
                 || ($(e.target).prop('tagName') === "A" && $(e.target).prop('role') === 'BUTTON')) || ($(e.target).prop('type') === 'button' && $(e.target).prop('tagName') === 'BUTTON' && $(e.target).attr('aria-haspopup') !== 'listbox')
-                || ($(e.target).prop('tagName') === 'DIV' && $(e.target).parent().prop('tagName') === 'A' && $(e.target).parent().prop('role')==='button')) {
+                || ($(e.target).prop('tagName') === 'DIV' && $(e.target).parent().prop('tagName') === 'A' && $(e.target).parent().prop('role') === 'button')) {
                 actionName = "clickButton";
             } else if (($(e.target).prop("tagName") === "SPAN" && $(e.target).parent().prop("tagName") === "A") || ($(e.target).prop("tagName") === "A" && $(e.target).attr('role') === 'option')) {
                 actionName = "clickLink";
@@ -164,10 +163,10 @@ if (document.referrer.includes('force.com')) {
                 actionName = 'clikcImage';
             } else if ($(e.target).prop("tagName") === "INPUT" && $(e.target).prop('type') === 'text') {
                 actionName = 'SendKeys';
-                if ($(e.target).prop('name') !== undefined && $(e.target).prop('name').includes('Date')){
+                if ($(e.target).prop('name') !== undefined && $(e.target).prop('name').includes('Date')) {
                     actionName = 'SendKeysDate';
                 }
-            }  else if (($(e.target).prop('tagName') === 'IMG' && $(e.target).prop('class') !== undefined && $(e.target).prop('class').includes('check')) || ($(e.target).prev().prop("type") === "checkbox") || $(e.target).prop('type') === 'checkbox') {
+            } else if (($(e.target).prop('tagName') === 'IMG' && $(e.target).prop('class') !== undefined && $(e.target).prop('class').includes('check')) || ($(e.target).prev().prop("type") === "checkbox") || $(e.target).prop('type') === 'checkbox') {
                 actionName = 'checkbox';
             } else if ($(e.target).prop("tagName") === "A" && $(e.target).parent().prop("tagName") === "SPAN" && $(e.target).parent().parent().prop("tagName") === "TD") {
                 actionName = 'clickTableLink';
@@ -343,7 +342,7 @@ if (document.referrer.includes('force.com')) {
                 "data": currObject
             });
         }
-    
+
     });
 
 
