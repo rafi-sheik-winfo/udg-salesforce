@@ -123,7 +123,7 @@ if (document.referrer.includes('force.com')) {
                 paramTwo = $(e.target).text().trim();
             }
 
-            if (action === 'SendKeysDate' || action === 'SendKeys' || action === 'checkbox' || paramTwo === '' || action === "selectByText" || action === 'paste' || action === 'copy') {
+            if (action === 'DatePicker' || action === 'SendKeys' || action === 'checkbox' || paramTwo === '' || action === "selectByText" || action === 'paste' || action === 'copy') {
                 if ($(e.target).parents('*:has("label")').first().find('label').first().text() !== '' && $(e.target).parents('*:has("label")').first().find('label').first().text().length < 50) {
                     paramTwo = $(e.target).parents('*:has("label")').first().find('label').first().text();
                 }
@@ -159,12 +159,13 @@ if (document.referrer.includes('force.com')) {
             } else if ($(e.target).prop('tagName') === 'TEXTAREA') {
                 actionName = 'textarea';
             } else if (($(e.target).prop("tagName") === 'DIV' && $(e.target).children('lightning-icon').length === 1) || e.target.nodeName === 'IMG' || e.target.nodeName === 'SVG'
-                || ($(e.target).prop('tagName') === 'SPAN' && $(e.target).prop('class') !== undefined && $(e.target).prop('class').includes('icon'))) {
+                || ($(e.target).prop('tagName') === 'SPAN' && $(e.target).prop('class') !== undefined && $(e.target).prop('class').includes('icon'))
+                || ($(e.target).prop('tagName') === 'SPAN' && $(e.target).parent().find('lightning-icon').length > 0)) {
                 actionName = 'clikcImage';
             } else if ($(e.target).prop("tagName") === "INPUT" && $(e.target).prop('type') === 'text') {
                 actionName = 'SendKeys';
                 if ($(e.target).prop('name') !== undefined && $(e.target).prop('name').includes('Date')) {
-                    actionName = 'SendKeysDate';
+                    actionName = 'DatePicker';
                 }
             } else if (($(e.target).prop('tagName') === 'IMG' && $(e.target).prop('class') !== undefined && $(e.target).prop('class').includes('check')) || ($(e.target).prev().prop("type") === "checkbox") || $(e.target).prop('type') === 'checkbox') {
                 actionName = 'checkbox';
@@ -218,7 +219,7 @@ if (document.referrer.includes('force.com')) {
                 let last_param = duplicateObj["INPUT PARAMETER"]
                 if (last_param !== undefined) {
                     let last_param1 = last_param.split(">")[last_param.split(">").length - 1];
-                    if (duplicateObj["ACTION"] == "SendKeysDate" || duplicateObj["ACTION"] == "SendKeys") {
+                    if (duplicateObj["ACTION"] == "DatePicker" || duplicateObj["ACTION"] == "SendKeys") {
                         let value = $('label:contains(' + last_param1 + ')').parent().find("input").first().val();
                         duplicateObj["INPUT VALUE"] = value;
                     }
